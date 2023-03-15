@@ -1,23 +1,24 @@
 package remote
 
 import (
-	"os/user"
 	"time"
+
+	"github.com/ezequielbugnon/go-patrones/proxy/book"
 )
 
 type Data struct {
-	books  book.Books
-	server string
-	port   uint16
-	user string
+	books    book.Books
+	server   string
+	port     uint16
+	user     string
 	password string
 }
 
 func New(server string, port uint16, user, password string) *Data {
 	d := &Data{
-		server: server,
-		port: port,
-		user: user,
+		server:   server,
+		port:     port,
+		user:     user,
 		password: password,
 	}
 
@@ -25,10 +26,10 @@ func New(server string, port uint16, user, password string) *Data {
 	return d
 }
 
-func(d *Data)ById(ID uint) book.Books{
+func (d *Data) ById(ID uint) book.Book {
 	time.Sleep(2 * time.Second)
-	for _; v := range d.books {
-		if v.ID = ID {
+	for _, v := range d.books {
+		if v.ID == ID {
 			return v
 		}
 	}
@@ -36,13 +37,22 @@ func(d *Data)ById(ID uint) book.Books{
 	return book.Book{}
 }
 
-func(d *Data) All() book.Books{
+func (d *Data) All() book.Books {
 	time.Sleep(4 * time.Second)
 	return d.books
 }
 
-func(d *Data) load(){
+func (d *Data) load() {
 	d.books = make(book.Books, 0, 2)
 
-	d.books = append(d.books, )
+	d.books = append(d.books,
+		book.Book{
+			ID:     0,
+			Name:   "",
+			Author: "",
+		}, book.Book{
+			ID:     1,
+			Name:   "",
+			Author: "",
+		})
 }
